@@ -1,6 +1,6 @@
-import csv from "csvtojson";
-import fs from "fs";
-import { pipeline } from "stream";
+const csv = require("csvtojson");
+const fs = require("fs");
+const stream = require("stream");
 
 const csvUrl = "csv/task2.csv";
 const nameFile = "task2.txt";
@@ -8,7 +8,7 @@ const nameFile = "task2.txt";
 const readStream = fs.createReadStream(csvUrl);
 const writeStream = fs.createWriteStream(nameFile);
 
-pipeline(
+stream.pipeline(
   readStream,
   csv({ ignoreColumns: /(amount)/ }).preFileLine((line, index) =>
     index === 0 ? line.toLocaleLowerCase() : line
