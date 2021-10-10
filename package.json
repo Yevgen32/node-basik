@@ -1,0 +1,25 @@
+{
+  "name": "basik",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "task1": "nodemon ./task1.js localhost 8080",
+    "task2": "nodemon ./task2.js localhost 8080",
+    "task3": "nodemon ./task3.js localhost 8080"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yevgen32/node-basik.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Yevgen32/node-basik/issues"
+  },
+  "homepage": "https://github.com/Yevgen32/node-basik#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.13"
+  }
+}
