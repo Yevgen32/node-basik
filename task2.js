@@ -1,27 +1,22 @@
 import csv from "csvtojson";
 import fs from "fs";
+import { pipeline } from "stream";
 
 const csvUrl = "csv/task2.csv";
 const nameFile = "task2.txt";
 
-const formatCsvFile = async () => {
-  try {
-    const jsonArray = await csv().fromFile(csvUrl);
+const readStream = fs.createReadStream(csvUrl);
+const writeStream = fs.createWriteStream(nameFile);
 
-    const stream = fs.createWriteStream(nameFile);
-
-    stream.once("open", function () {
-      jsonArray.forEach((item) => {
-        delete item["Amount"];
-
-        return stream.write(`${JSON.stringify(item)}\n`);
-      });
-
-      stream.end();
-    });
-  } catch (error) {
-    console.log(error);
+pipeline(
+  readStream,
+  csv({ ignoreColumns: /(amount)/ }).preFileLine((line, index) =>
+    index === 0 ? line.toLocaleLowerCase() : line
+  ),
+  writeStream,
+  (err) => {
+    if (err) {
+      console.error(`Failed with error: ${err}`);
+    }
   }
-};
-
-formatCsvFile();
+);
